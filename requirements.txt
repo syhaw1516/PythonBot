@@ -1,0 +1,7 @@
+discord
+asyncio
+os
+bs4
+requests
+random
+commands
