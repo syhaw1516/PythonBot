@@ -11,7 +11,7 @@ async def on_ready():
     print('봇 시작')
     return
 
-@bot.command
+@bot.event
 async def on_message(message):
     if message.author == bot.user:  
         return
