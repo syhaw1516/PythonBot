@@ -60,9 +60,21 @@ async def on_message(message):
             await message.channel.send(f'```음 오늘은 좀 아닌듯 그냥 자자 에휴...```')
             
     if message.content.startswith("!오늘급식"):
-        date = datetime.datetime.now().strftime("%Y.%m.%d")
-        today = f"{datetime.datetime.now().year}년 {datetime.datetime.now().month}월 {datetime.datetime.now().day}일"
-        meal = get_diet(2, date, 4)
+        date = datetime.datetime.now()
+        day = date + datetime.timedelta(days=1)
+        today = f"{day.strftime('%y%y')}년 {day.strftime('%m')}월 {day.strftime('%d')}일자 급식"
+        meal = get_diet(2, day, 4)
+        embed=discord.Embed(title="세명컴고 오늘의 급식", color=0x00ff56)
+        embed.set_author(name=f"{today}")
+        embed.add_field(name="중식", value=f"{meal}", inline=True)
+        embed.set_footer(text="드디어 해냈다.. ㅎㅎ")
+        await message.channel.send(embed=embed)
+        
+    if message.content.startswith("!내일급식"):
+        date = datetime.datetime.now()
+        day = date + datetime.timedelta(days=2)
+        today = f"{day.strftime('%y%y')}년 {day.strftime('%m')}월 {day.strftime('%d')}일자 급식"
+        meal = get_diet(2, day, 4)
         embed=discord.Embed(title="세명컴고 오늘의 급식", color=0x00ff56)
         embed.set_author(name=f"{today}")
         embed.add_field(name="중식", value=f"{meal}", inline=True)
