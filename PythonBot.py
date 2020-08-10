@@ -1,6 +1,7 @@
-import discord,asyncio
+import discord,asyncio,datetime
 from discord.ext import commands
 import os,bs4,requests,random
+from test2 import*
 
 game = discord.Game("!도움말")
 bot = commands.Bot(command_prefix='!',status=discord.Status.online,activity=game)
@@ -17,7 +18,7 @@ async def on_message(message):
         return
 
     if message.content.startswith('!도움말'):
-        await message.channel.send("```Python Boy 명령어\n\n 1. !도움말 - 명령어를 보여줍니다.\n\n 2. !밥 - 음식중 아무거나 나옵니다.\n\n 3. !ping - 서버 핑을 확인해줍니다.\n\n 4. !파이썬 - 개발자의 한탄을 들을 수 있습니다. \n\n 5. !오늘배그 - 오늘의 배그 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 6. !오늘서든 - 오늘의 서든 각을 알려줍니다.(그냥 만듬 심심해서) ```")
+        await message.channel.send("```Python Boy 명령어\n\n 1. !도움말 - 명령어를 보여줍니다.\n\n 2. !밥 - 음식중 아무거나 나옵니다.\n\n 3. !ping - 서버 핑을 확인해줍니다.\n\n 4. !파이썬 - 개발자의 한탄을 들을 수 있습니다. \n\n 5. !오늘배그 - 오늘의 배그 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 6. !오늘서든 - 오늘의 서든 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 7. !오늘급식 - 오늘의 급식을 알려줍니다. ```")
 
     if message.content.startswith('!밥'):
         i = random.randint(0,23)
@@ -57,6 +58,16 @@ async def on_message(message):
 
         if i == 2:
             await message.channel.send(f'```음 오늘은 좀 아닌듯 그냥 자자 에휴...```')
+            
+    if message.content.startswith("!오늘급식"):
+        date = datetime.datetime.now().strftime("%Y.%m.%d")
+        today = f"{datetime.datetime.now().year}년 {datetime.datetime.now().month}월 {datetime.datetime.now().day}일"
+        meal = get_diet(2, date, 4)
+        embed=discord.Embed(title="세명컴고 오늘의 급식", color=0x00ff56)
+        embed.set_author(name=f"{today}")
+        embed.add_field(name="중식", value=f"{meal}", inline=True)
+        embed.set_footer(text="드디어 해냈다.. ㅎㅎ")
+        await message.channel.send(embed=embed)
 
 access_token = os.environ["BOT_TOKEN"]
 bot.run(access_token)
