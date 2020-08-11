@@ -18,7 +18,7 @@ async def on_message(message):
         return
 
     if message.content.startswith('!도움말'):
-        await message.channel.send("```Python Boy 명령어\n\n 1. !도움말 - 명령어를 보여줍니다.\n\n 2. !밥 - 음식중 아무거나 나옵니다.\n\n 3. !ping - 서버 핑을 확인해줍니다.\n\n 4. !파이썬 - 개발자의 한탄을 들을 수 있습니다. \n\n 5. !오늘배그 - 오늘의 배그 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 6. !오늘서든 - 오늘의 서든 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 7. !오늘급식 - 오늘의 급식을 알려줍니다. \n\n 7. !내일급식 - 내일의 급식을 알려줍니다.```")
+        await message.channel.send("```Python Boy 명령어\n\n 1. !도움말 - 명령어를 보여줍니다.\n\n 2. !밥 - 음식중 아무거나 나옵니다.\n\n 3. !ping - 서버 핑을 확인해줍니다.\n\n 4. !파이썬 - 개발자의 한탄을 들을 수 있습니다. \n\n 5. !오늘배그 - 오늘의 배그 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 6. !오늘서든 - 오늘의 서든 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 7. !오늘급식 - 오늘의 급식을 알려줍니다. \n\n 8. !내일급식 - 내일의 급식을 알려줍니다.```")
 
     if message.content.startswith('!밥'):
         i = random.randint(0,23)
