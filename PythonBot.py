@@ -18,7 +18,7 @@ async def on_message(message):
         return
 
     if message.content.startswith('!도움말'):
-        await message.channel.send("```Python Boy 명령어\n\n 1. !도움말 - 명령어를 보여줍니다.\n\n 2. !밥 - 음식중 아무거나 나옵니다.\n\n 3. !ping - 서버 핑을 확인해줍니다.\n\n 4. !파이썬 - 개발자의 한탄을 들을 수 있습니다. \n\n 5. !오늘배그 - 오늘의 배그 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 6. !오늘서든 - 오늘의 서든 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 7. !오늘급식 - 오늘의 급식을 알려줍니다. ```")
+        await message.channel.send("```Python Boy 명령어\n\n 1. !도움말 - 명령어를 보여줍니다.\n\n 2. !밥 - 음식중 아무거나 나옵니다.\n\n 3. !ping - 서버 핑을 확인해줍니다.\n\n 4. !파이썬 - 개발자의 한탄을 들을 수 있습니다. \n\n 5. !오늘배그 - 오늘의 배그 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 6. !오늘서든 - 오늘의 서든 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 7. !오늘급식 - 오늘의 급식을 알려줍니다. \n\n 7. !내일급식 - 내일의 급식을 알려줍니다.```")
 
     if message.content.startswith('!밥'):
         i = random.randint(0,23)
@@ -60,31 +60,37 @@ async def on_message(message):
             await message.channel.send(f'```음 오늘은 좀 아닌듯 그냥 자자 에휴...```')
             
     if message.content.startswith("!오늘급식"):
-        date = datetime.datetime.now()
+        utcnow= datetime.datetime.utcnow()
+        time_gap= datetime.timedelta(hours=9)
+        kor_time= utcnow+ time_gap
+        date = kor_time
+        day = date
+        year = day.strftime("%y%y")
+        mon = day.strftime("%m")
+        da = day.strftime("%d")
+        today = f"{year}년 {mon}월 {da}일자 급식"
+        meal = get_diet(2, day.strftime("%y%y.%m.%d"), 4)
+        embed=discord.Embed(title="세명컴고 오늘의 급식", color=0x00ff56)
+        embed.set_author(name=f"{today}")
+        embed.add_field(name="중식", value=f"{meal}", inline=True)
+        embed.set_footer(text="맛있겠당..")
+        await message.channel.send(embed=embed)
+
+    if message.content.startswith("!내일급식"):
+        utcnow= datetime.datetime.utcnow()
+        time_gap= datetime.timedelta(hours=9)
+        kor_time= utcnow+ time_gap
+        date = kor_time
         day = date + datetime.timedelta(days=1)
         year = day.strftime("%y%y")
         mon = day.strftime("%m")
         da = day.strftime("%d")
         today = f"{year}년 {mon}월 {da}일자 급식"
         meal = get_diet(2, day.strftime("%y%y.%m.%d"), 4)
-        embed=discord.Embed(title="세명컴고 오늘의 급식", color=0x00ff56)
+        embed=discord.Embed(title="세명컴고 내일의 급식", color=0x00ff56)
         embed.set_author(name=f"{today}")
         embed.add_field(name="중식", value=f"{meal}", inline=True)
-        embed.set_footer(text="드디어 해냈다.. ㅎㅎ")
-        await message.channel.send(embed=embed)
-
-    if message.content.startswith("!내일급식"):
-        date = datetime.datetime.now()
-        day = date + datetime.timedelta(days=2)
-        year = day.strftime("%y%y")
-        mon = day.strftime("%m")
-        da = day.strftime("%d")
-        today = f"{year}년 {mon}월 {da}일자 급식"
-        meal = get_diet(2, day.strftime("%y%y.%m.%d"), 4)
-        embed=discord.Embed(title="세명컴고 오늘의 급식", color=0x00ff56)
-        embed.set_author(name=f"{today}")
-        embed.add_field(name="중식", value=f"{meal}", inline=True)
-        embed.set_footer(text="드디어 해냈다.. ㅎㅎ")
+        embed.set_footer(text="맛있겠당..")
         await message.channel.send(embed=embed)
 
 access_token = os.environ["BOT_TOKEN"]
