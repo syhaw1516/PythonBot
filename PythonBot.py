@@ -62,19 +62,25 @@ async def on_message(message):
     if message.content.startswith("!오늘급식"):
         date = datetime.datetime.now()
         day = date + datetime.timedelta(days=1)
-        today = f"{day.strftime('%y%y')}년 {day.strftime('%m')}월 {day.strftime('%d')}일자 급식"
-        meal = get_diet(2, day, 4)
+        year = day.strftime("%y%y")
+        mon = day.strftime("%m")
+        da = day.strftime("%d")
+        today = f"{year}년 {mon}월 {da}일자 급식"
+        meal = get_diet(2, day.strftime("%y%y.%m.%d"), 4)
         embed=discord.Embed(title="세명컴고 오늘의 급식", color=0x00ff56)
         embed.set_author(name=f"{today}")
         embed.add_field(name="중식", value=f"{meal}", inline=True)
         embed.set_footer(text="드디어 해냈다.. ㅎㅎ")
         await message.channel.send(embed=embed)
-        
+
     if message.content.startswith("!내일급식"):
         date = datetime.datetime.now()
         day = date + datetime.timedelta(days=2)
-        today = f"{day.strftime('%y%y')}년 {day.strftime('%m')}월 {day.strftime('%d')}일자 급식"
-        meal = get_diet(2, day, 4)
+        year = day.strftime("%y%y")
+        mon = day.strftime("%m")
+        da = day.strftime("%d")
+        today = f"{year}년 {mon}월 {da}일자 급식"
+        meal = get_diet(2, day.strftime("%y%y.%m.%d"), 4)
         embed=discord.Embed(title="세명컴고 오늘의 급식", color=0x00ff56)
         embed.set_author(name=f"{today}")
         embed.add_field(name="중식", value=f"{meal}", inline=True)
