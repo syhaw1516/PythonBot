@@ -180,7 +180,7 @@ async def on_message(message):
 
 
 
-        await message.channel.send(message.channel,embed=embed)
+        await message.channel.send(embed=embed)
 
 access_token = os.environ["BOT_TOKEN"]
 bot.run(access_token)
