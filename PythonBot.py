@@ -4,7 +4,7 @@ import os,bs4,requests,random
 from test2 import*
 from test3 import*
 
-game = discord.Game("!도움말")
+game = discord.Game("/도움말")
 bot = commands.Bot(command_prefix='!',status=discord.Status.online,activity=game)
 bob = ["치킨","피자","햄버거","스파게티","짜장면","찜닭","닭도리탕","김치찌개","냉면","만두","떡볶이","김밥","튀김","국수","돈까스","카레","초밥","족발","보쌈","탕수육","삼겹살","갈비","샌드위치"]
 
@@ -18,18 +18,19 @@ async def on_message(message):
     if message.author == bot.user:  
         return
 
-    if message.content.startswith('!도움말'):
-        await message.channel.send("```Python Boy 명령어\n\n 1. !도움말 - 명령어를 보여줍니다.\n\n 2. !밥 - 음식중 아무거나 나옵니다.\n\n 3. !ping - 서버 핑을 확인해줍니다.\n\n 4. !파이썬 - 개발자의 한탄을 들을 수 있습니다. \n\n 5. !오늘배그 - 오늘의 배그 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 6. !오늘서든 - 오늘의 서든 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 7. !오늘급식 - 오늘의 급식을 알려줍니다. \n\n 8. !내일급식 - 내일의 급식을 알려줍니다.```")
+    if message.content.startswith('/도움말'):
+        await message.channel.send("```Python Boy 명령어\n\n 1. /도움말 - 명령어를 보여줍니다.\n\n 2. /밥 - 음식중 아무거나 나옵니다.\n\n 3. /ping - 서버 핑을 확인해줍니다.\n\n 4. /파이썬 - 개발자의 한탄을 들을 수 있습니다. \n\n 5. /오배 - 오늘의 배그 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 6. /오서 - 오늘의 서든 각을 알려줍니다.(그냥 만듬 심심해서) \n\n 7. /오급 - 오늘의 급식을 알려줍니다. \n\n 8. /내급 - 내일의 급식을 알려줍니다.\
+    \n\n 9. /개발자 - 개발자 연락처를 통해 추가사항을 요청할 수 있습니다.```")
 
-    if message.content.startswith('!밥'):
+    if message.content.startswith('/밥'):
         i = random.randint(0,23)
         await message.channel.send(f"```음 오늘은 \"{bob[i]}\"이(가) 좋을 것 같아요!!```")
 
-    if message.content.startswith('!ping'):
+    if message.content.startswith('/ping'):
         l = bot.latency
         await message.channel.send(f"```Pong! {round(l*1000)}ms 입니다.```")
 
-    if message.content.startswith('!파이썬'):
+    if message.content.startswith('/파이썬'):
         i = random.randint(1,4)
 
         if i == 1:
@@ -44,7 +45,7 @@ async def on_message(message):
         if i == 4:
             await message.channel.send("```많이 사용해주면... 좀 많이 기쁠지도..(O.O)```")
 
-    if message.content.startswith('!오늘배그'):
+    if message.content.startswith('/오배'):
         i =  random.randint(1,2)
         if i == 1:
             await message.channel.send(f'```나쁘지않아 각이야 가즈아ㅏㅏㅏㅏㅏㅏㅏㅏ```')
@@ -52,7 +53,7 @@ async def on_message(message):
         if i == 2:
             await message.channel.send(f'```음 오늘은 좀 아닌듯 그냥 자자 에휴...```')
 
-    if message.content.startswith('!오늘서든'):
+    if message.content.startswith('/오서'):
         i =  random.randint(1,2)
         if i == 1:
             await message.channel.send(f'```나쁘지않아 각이야 가즈아ㅏㅏㅏㅏㅏㅏㅏㅏ```')
@@ -60,7 +61,7 @@ async def on_message(message):
         if i == 2:
             await message.channel.send(f'```음 오늘은 좀 아닌듯 그냥 자자 에휴...```')
             
-    if message.content.startswith("!오늘급식"):
+    if message.content.startswith("/오급"):
         utcnow= datetime.datetime.utcnow()
         time_gap= datetime.timedelta(hours=9)
         kor_time= utcnow+ time_gap
@@ -77,7 +78,7 @@ async def on_message(message):
         embed.set_footer(text="맛있겠당..")
         await message.channel.send(embed=embed)
 
-    if message.content.startswith("!내일급식"):
+    if message.content.startswith("/내급"):
         utcnow= datetime.datetime.utcnow()
         time_gap= datetime.timedelta(hours=9)
         kor_time= utcnow+ time_gap
@@ -94,22 +95,8 @@ async def on_message(message):
         embed.set_footer(text="맛있겠당..")
         await message.channel.send(embed=embed)
 
-    if message.content.startswith("!선일급식"):
-        utcnow= datetime.datetime.utcnow()
-        time_gap= datetime.timedelta(hours=9)
-        kor_time= utcnow+ time_gap
-        date = kor_time
-        day = date
-        year = day.strftime("%y%y")
-        mon = day.strftime("%m")
-        da = day.strftime("%d")
-        today = f"{year}년 {mon}월 {da}일자 급식"
-        meal = get_diet1(2, day.strftime("%y%y.%m.%d"), day.weekday())
-        embed=discord.Embed(title="선일이비고 오늘의 급식", color=0x00ff56)
-        embed.set_author(name=f"{today}")
-        embed.add_field(name="중식", value=f"{meal}", inline=True)
-        embed.set_footer(text="맛있겠당..")
-        await message.channel.send(embed=embed)
+    if message.content.startswith('/개발자'):
+        await message.channel.send("```연락처\nDISCORD DM : 소금감자#0332\n 이메일 : syhaw@naver.com\n 뭐넣을지 모르겠다...```")
 
 access_token = os.environ["BOT_TOKEN"]
 bot.run(access_token)
