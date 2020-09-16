@@ -93,7 +93,7 @@ async def on_message(message):
         embed.add_field(name="중식", value=f"{meal}", inline=True)
         embed.set_footer(text="맛있겠당..")
         await message.channel.send(embed=embed)
-    
+
     if message.content.startswith("!선일급식"):
         utcnow= datetime.datetime.utcnow()
         time_gap= datetime.timedelta(hours=9)
