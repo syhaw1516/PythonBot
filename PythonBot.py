@@ -2,6 +2,7 @@ import discord,asyncio,datetime
 from discord.ext import commands
 import os,bs4,requests,random
 from test2 import*
+from test3 import*
 
 game = discord.Game("!도움말")
 bot = commands.Bot(command_prefix='!',status=discord.Status.online,activity=game)
@@ -88,6 +89,23 @@ async def on_message(message):
         today = f"{year}년 {mon}월 {da}일자 급식"
         meal = get_diet(2, day.strftime("%y%y.%m.%d"), day.weekday())
         embed=discord.Embed(title="세명컴고 내일의 급식", color=0x00ff56)
+        embed.set_author(name=f"{today}")
+        embed.add_field(name="중식", value=f"{meal}", inline=True)
+        embed.set_footer(text="맛있겠당..")
+        await message.channel.send(embed=embed)
+    
+    if message.content.startswith("!선일급식"):
+        utcnow= datetime.datetime.utcnow()
+        time_gap= datetime.timedelta(hours=9)
+        kor_time= utcnow+ time_gap
+        date = kor_time
+        day = date
+        year = day.strftime("%y%y")
+        mon = day.strftime("%m")
+        da = day.strftime("%d")
+        today = f"{year}년 {mon}월 {da}일자 급식"
+        meal = get_diet1(2, day.strftime("%y%y.%m.%d"), day.weekday())
+        embed=discord.Embed(title="선일이비고 오늘의 급식", color=0x00ff56)
         embed.set_author(name=f"{today}")
         embed.add_field(name="중식", value=f"{meal}", inline=True)
         embed.set_footer(text="맛있겠당..")
